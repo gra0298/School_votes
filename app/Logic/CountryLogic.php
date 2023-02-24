@@ -87,31 +87,26 @@ class CountryLogic
 
     }
 
-
-
-    public function update(Request $request, $id)
+    public function delete(Request $request)
     {
-        try {
-            $country = Country::find($id);
 
-            // Actualizar los campos deseados utilizando los valores enviados en el $request
-            $country->country_name = $request->input('country_nameme');
-
-
-            // Guardar los cambios en la base de datos
-            $country->save();
-
-            return response()->json(ResponseApi::json([$country], 'Éxito al editar', 201));
-        } catch (\PDOException $e) {
-            return response()->json(ResponseApi::json(["Error al editar, # " . $e->getCode()]), 202);
+        $country = Country::destroy($request->id);
+            if ($country) {
+                return response()->json(ResponseApi::json(["Registro eliminado correctamente"], 204));
+        } else {
+            return response()->json(['message' => 'No se ha encontrado el registro'], 404);
         }
+
     }
 
 
-
-
-
 }
+
+
+
+
+
+
 
 
 

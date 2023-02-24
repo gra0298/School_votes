@@ -27,10 +27,17 @@ class CountriesController extends Controller
 
     }
 
-    public function updateCountry(Request $request,$id)
+    // public function updateCountry(Request $request,$id)
+    // {
+    //     $Country= new CountryLogic;
+    //     return $Country->update($request,$id);
+
+    // }
+
+    public function deleteCountry(Request $request)
     {
-        $Country= new CountryLogic;
-        return $Country->update($request,$id);
+        $Countries= new CountryLogic;
+        return $Countries->delete($request);
 
     }
 }
