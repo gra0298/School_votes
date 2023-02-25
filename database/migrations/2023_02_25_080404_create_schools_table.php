@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
-            $table->foreign('id_country')->references('id_country')->on('countries')->onDelete('restrict')->onUpdate('restrict');
             $table->string('school_name')->default('SCHOOL NAME');
             $table->string('rector_name')->default('RECTOR NAME');
             $table->string('neighborhood');
@@ -22,8 +21,12 @@ return new class extends Migration
             $table->string('email');
             $table->string('logo');
             $table->string('year')->default('2018');
+            $table->foreign('id_country')->references('id')->on('countries')->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });
+
+        // $table->unsignedBigInteger('id_country');
+        //     $table->foreign('id_country')->references('id')->on('countries')->onDelete('restrict')->onUpdate('restrict');
 
     }
 

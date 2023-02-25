@@ -3,22 +3,26 @@
 namespace App\Logic;
 
 use Illuminate\Http\Request;
-use App\Models\{Country};
+use App\Models\{Student};
 use Illuminate\Support\Facades\Validator;
 use App\Tools\ResponseApi;
 
 
 
-class CountryLogic
+class StudentLogic
 {
 
     protected $arrayValidate = [
-        //validate input data.
-            'country_code'   => 'required','unique',
-            'country_name'   => 'required',
-            'abbreviation'   => 'required',
-            'currency'       => 'required',
-            'image'          =>'required',
+
+        'id_inst' => 'required',
+        'id_grade'=> 'required',
+        'identity_document'=> 'required',
+        'student_names'=> 'required',
+        'student_lastnames'=> 'required',
+        'photo'=> 'required',
+        'group_name'=> 'required',
+        'year'=> 'required',
+
 
     ];
 
@@ -29,16 +33,13 @@ class CountryLogic
     public function create(Request $request)
     {
 
-
-
         $validate = Validator::make($request->all(), $this->arrayValidate);
         if ($validate->fails())
             return response()->json(ResponseApi::json($validate->errors()->toArray(), 'error', 'fallo'), 400);
         try {
 
-
-            $country = Country::create($request->except('updated_at'));
-            return response()->json(ResponseApi::json([$country], 'Creación exitosa'), 201);
+            $student = Student::create($request->except('updated_at'));
+            return response()->json(ResponseApi::json([$student], 'Creación exitosa'), 201);
 
 
         } catch (\PDOException $e) {
@@ -49,7 +50,7 @@ class CountryLogic
 
     }
 
-     public function view($request)
+    public function view($request)
     {
 
         $validate = Validator::make($request->all(),[
@@ -60,10 +61,10 @@ class CountryLogic
 
 
         try {
-            $country = Country::find($request->id);
-            if($country)
-                return response()->json(ResponseApi::json([$country], 'Éxito al mostrar', 201));
-            return response()->json(ResponseApi::json(["pais no existe"], 'error', 'fallo', 202));
+            $student = Student::find($request->id);
+            if($student)
+                return response()->json(ResponseApi::json([$student], 'Éxito al mostrar', 201));
+            return response()->json(ResponseApi::json(["Estudiante no existe"], 'error', 'fallo', 202));
 
 
         } catch (\PDOException $e) {
@@ -71,13 +72,15 @@ class CountryLogic
         }
 
 
+
+
     }
     public function list($request)
     {
         try {
 
-            $country = Country::select('id', 'country_code','abbreviation')->get()->toArray();
-                return response()->json(ResponseApi::json([$country], 'Éxito al mostrar', 201));
+            $Student = Student::select('id', 'id_inst','student_names','id_grade','identity_document','year','admission_date')->get()->toArray();
+                return response()->json(ResponseApi::json([$Student], 'Éxito al mostrar', 201));
 
         } catch (\PDOException $e) {
             return response()->json(ResponseApi::json(["Error al mostrar, # ", $e .  $e->getCode()], 202));
@@ -89,8 +92,8 @@ class CountryLogic
     public function delete(Request $request)
     {
 
-        $country = Country::destroy($request->id);
-            if ($country) {
+        $Student = Student::destroy($request->id);
+            if ($Student) {
                 return response()->json(ResponseApi::json(["Registro eliminado correctamente"], 204));
         } else {
             return response()->json(['message' => 'No se ha encontrado el registro'], 404);
@@ -98,6 +101,11 @@ class CountryLogic
 
     }
 
+    public function update(Request $request, $id)
+{
+
+    return "esto es update";
+}
 
 }
 

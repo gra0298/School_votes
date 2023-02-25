@@ -5,20 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class Grade extends Model
 {
     use HasFactory;
-
+    protected $table = 'grade';
+    // protected $guarded = [];
     protected $fillable = [
-        'id_country',
-        'school_name',
-        'rector_name',
-        'neighborhood',
-        'address',
-        'web',
-        'email',
-        'logo',
-        'year'
+        'grade_code',
+        'grade_name',
+
+
     ];
     public $timestamps = false;
 }

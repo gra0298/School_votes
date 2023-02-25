@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{PeopleController,UserController,CountriesController,SchoolsController};
+use App\Http\Controllers\{PeopleController,UserController,CountriesController,SchoolsController
+    ,GradesController,StudentsController};
 
 Route::prefix('v1')->group(function () {
 
@@ -27,5 +28,15 @@ Route::prefix('v1')->group(function () {
         #School
         Route::post('school/new', [SchoolsController::class, 'createSchool']);
         Route::put('school/update/{id}', [SchoolsController::class, 'updateSchool']);
+
+        #Grade
+        Route::post('grade/new', [GradesController::class, 'createGrade']);
+
+        #Student
+        Route::post('student/new', [StudentsController::class, 'createStudent']);
+        Route::get('student/view', [StudentsController::class, 'viewStudent']);
+        Route::get('student/list', [StudentsController::class, 'listStudents']);
+        Route::put('student/update/{id}', [StudentsController::class, 'updateStudent']);
+        Route::delete('student/delete/{id}', [StudentsController::class, 'deleteStudent']);
 
 });
