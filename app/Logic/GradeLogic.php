@@ -3,7 +3,6 @@
 namespace App\Logic;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Models\{Grade};
 use Illuminate\Support\Facades\Validator;
 use App\Tools\ResponseApi;
@@ -20,7 +19,7 @@ class GradeLogic
      */
     protected $arrayValidate = [
         //validate input data.
-            'grade_code'            => 'required',
+            'grade_code'            => 'required|max:2',
             'grade_name'             => 'required',
     ];
 

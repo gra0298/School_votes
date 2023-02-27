@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{PeopleController,UserController,CountriesController,SchoolsController
-    ,GradesController,StudentsController,Auth\AuthController};
+use App\Http\Controllers\{CountriesController,SchoolsController
+    ,GradesController,StudentsController,Auth\AuthController
+    ,TpCandidacyController,TpCandidateController,TpAuxCandidateVoteController};
 
 Route::prefix('v1')->group(function () {
 
@@ -14,9 +15,9 @@ Route::prefix('v1')->group(function () {
 
 
 
-        Route::middleware('jwt.verify')->group(function(){
+        // Route::middleware('jwt.verify')->group(function(){
 
-                Route::get('user/list', [PeopleController::class, 'listPerson']);
+
             #Country
             Route::post('country/new', [CountriesController::class, 'createCountry']);
             Route::get('country/view', [CountriesController::class, 'viewCountry']);
@@ -41,7 +42,26 @@ Route::prefix('v1')->group(function () {
             Route::get('student/list', [StudentsController::class, 'listStudents']);
             Route::put('student/update/{id}', [StudentsController::class, 'updateStudent']);
             Route::delete('student/delete/{id}', [StudentsController::class, 'deleteStudent']);
-            });
+
+
+            #tp_candidacies => TpCandidacy
+            Route::post('candidacy/new', [TpCandidacyController::class, 'create']);
+            Route::get('candidacy/view', [TpCandidacyController::class, 'view']);
+            Route::get('candidacy/list', [TpCandidacyController::class, 'list']);
+
+            #tp_candidates => TpCandidate
+            Route::post('candidate/new', [TpCandidateController::class, 'create']);
+            Route::get('candidate/view', [TpCandidateController::class, 'view']);
+            Route::get('candidate/list', [TpCandidateController::class, 'list']);
+
+            #tp_aux_candidate_votes => TpAuxCandidateVote
+            Route::post('aux/candidate/new', [TpAuxCandidateVoteController::class, 'create']);
+            Route::get('aux/candidate/view', [TpAuxCandidateVoteController::class, 'view']);
+            Route::get('aux/candidate/list', [TpAuxCandidateVoteController::class, 'list']);
+
+
+
+            // });
 
 
 

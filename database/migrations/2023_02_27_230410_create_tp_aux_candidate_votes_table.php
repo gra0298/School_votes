@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tp_aux_candidate_votes', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('id_type')->references('id')->on('user_types')->onDelete('restrict')->onUpdate('restrict');
-            // $table->string('owner');
-            // $table->string('userName');
-            // $table->string('userPassword');
-            // $table->string('state');
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tp_aux_candidate_votes');
     }
 };

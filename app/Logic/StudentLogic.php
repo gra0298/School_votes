@@ -102,33 +102,47 @@ class StudentLogic
     }
 
     public function update(Request $request,$id){
-
-        $validate = Validator::make($request->all(), $this->arrayValidate);
-        if ($validate->fails())
-            return response()->json(ResponseApi::json($validate->errors()->toArray(), 'error', 'fallo'), 400);
-            try {
-
-                $students = Student::findOrFail($request->$id);
-
-                $students->id_country=$request->id_country;
-                $students->id_inst=$request->id_inst;
-                $students->id_grade=$request->id_grade;
-                $students->identity_document=$request->identity_document;
-                $students->student_names=$request->student_names;
-                $students->student_lastnames=$request->student_lastnames;
-                $students->photo=$request->photo;
-                $students->group_name=$request->group_name;
-                $students->year=$request->year;
-                $students->admission_date=$request->admission_date;
-                $students->status=$request->status;
-
-                $students->save();
-                return response()->json(ResponseApi::json([$students], 'Edicion exitosa'), 201);
-
-
-            } catch (\PDOException $e) {
-                return response()->json(ResponseApi::json(["Error al crear, # ",$e. $e->getCode()]), 400);
+        try {
+            $student = Student::find($id);
+            if (!$student) {
+                return response()->json(['message' => 'No se ha encontrado el registro'], 404);
             }
+
+            // OLD
+            $id_inst_old =    $student->id_inst;
+            $id_grade_old=    $student->id_grade;
+            $identity_document_old =    $student->identity_document;
+            $student_names_old = $student->student_names;
+            $student_lastnames_old= $student->student_lastnames;
+            $group_name_old= $student->group_name;
+            $year_old= $student->year;
+            $admission_date_old= $student->admission_date;
+
+
+            // NEW
+            $student->id_inst = $request->input('id_inst', $id_inst_old);
+            $student->id_grade = $request->input('id_grade', $id_grade_old);
+            $student->identity_document = $request->input('identity_document', $identity_document_old);
+            $student->student_names = $request->input('student_names', $student_names_old);
+            $student->student_lastnames = $request->input('student_lastnames', $student_lastnames_old);
+            $student->group_name = $request->input('group_name', $group_name_old);
+            $student->year = $request->input('year', $year_old);
+            $student->admission_date = $request->input('admission_date', $admission_date_old);
+
+
+
+            $student->save();
+            return response()->json(ResponseApi::json(["Registro actualizado correctamente"], 204));
+
+        } catch (\PDOException $e) {
+            return response()->json(ResponseApi::json(["Error al editar, # $e ", $e->getCode()]), 400);
+        }
+
+
+
+
+
+
 
 
 }

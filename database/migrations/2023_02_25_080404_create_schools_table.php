@@ -25,8 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // $table->unsignedBigInteger('id_country');
-        //     $table->foreign('id_country')->references('id')->on('countries')->onDelete('restrict')->onUpdate('restrict');
+
 
     }
 
