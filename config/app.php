@@ -194,6 +194,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //Jwt
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class
+        //https://jwt-auth.readthedocs.io/en/develop/laravel-installation/
+        //https://www.youtube.com/watch?v=p7tGYsVQV48&t=34s
+
 
     ],
 

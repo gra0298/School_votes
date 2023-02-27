@@ -16,7 +16,7 @@ class UserLogic
 
     protected $arrayValidate = [
         //validate input data.
-            'id_type'            => 'required',
+
             'owner'             => 'required',
             'userName'   => 'required',
             'userPassword' => 'required', 'unique:posts',

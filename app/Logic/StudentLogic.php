@@ -101,16 +101,40 @@ class StudentLogic
 
     }
 
-    public function update(Request $request, $id)
-{
+    public function update(Request $request,$id){
 
-    return "esto es update";
+        $validate = Validator::make($request->all(), $this->arrayValidate);
+        if ($validate->fails())
+            return response()->json(ResponseApi::json($validate->errors()->toArray(), 'error', 'fallo'), 400);
+            try {
+
+                $students = Student::findOrFail($request->$id);
+
+                $students->id_country=$request->id_country;
+                $students->id_inst=$request->id_inst;
+                $students->id_grade=$request->id_grade;
+                $students->identity_document=$request->identity_document;
+                $students->student_names=$request->student_names;
+                $students->student_lastnames=$request->student_lastnames;
+                $students->photo=$request->photo;
+                $students->group_name=$request->group_name;
+                $students->year=$request->year;
+                $students->admission_date=$request->admission_date;
+                $students->status=$request->status;
+
+                $students->save();
+                return response()->json(ResponseApi::json([$students], 'Edicion exitosa'), 201);
+
+
+            } catch (\PDOException $e) {
+                return response()->json(ResponseApi::json(["Error al crear, # ",$e. $e->getCode()]), 400);
+            }
+
+
 }
 
+
 }
-
-
-
 
 
 

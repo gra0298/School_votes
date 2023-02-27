@@ -56,60 +56,80 @@ class SchooLogic
 
     }
 
-    // $school = School::select('id', 'rector_name')->where('id', $request->id)->get();
+    public function view($request)
+    {
 
-//     public function update(Request $request, $id)
-// {
-//     $school = School::findOrFail($id);
-//     // $school->update($request->all());
+        $validate = Validator::make($request->all(),[
+            'id' => 'required'
+        ]);
+        if($validate->fails())
+            return response()->json(ResponseApi::json(["id no existe"], 'error', 'fallo', 202));
 
-//     return response()->json(ResponseApi::json([$school], 'Actualización exitosa'), 201);
+
+        try {
+            $school = School::find($request->id);
+            if($school)
+                return response()->json(ResponseApi::json([$school], 'Éxito al mostrar', 201));
+            return response()->json(ResponseApi::json(["Registro no existe"], 'error', 'fallo', 202));
 
 
-// }
+        } catch (\PDOException $e) {
+            return response()->json(ResponseApi::json(["Error al mostrar, # ", $e .  $e->getCode()], 202));
+        }
+    }
 
-##segundo
 
-// public function update(Request $request, $id)
-// {
-//     $school = School::find($id);
-//     $school->fill($request->all());
-//     $school->save();
-//     return response()->json(['message' => 'School updated successfully',$school]);
-//     // return response()->json(['message' => 'School updated successfully']);
-// }
 
-#tercero
 
-// public function update(Request $request, $id)
-// {
-//     $school = School::find($id);
-//     $school->rector_name = $request->input('rector_name');
-//     $school->save();
+    public function update(Request $request, $id){
 
-//     return response()->json([
-//         'message' => 'School updated successfully',
-//         'school' => $school
-//     ]);
-// }
 
-public function update(Request $request,$id){
-    $school = School::findOrFail($request->$id);
+        try {
+            $school = School::find($id);
+            if (!$school) {
+                return response()->json(['message' => 'No se ha encontrado el registro'], 404);
+            }
 
-    $school->id_country=$request->id_country;
-    $school->school_name=$request->school_name;
-    $school->rector_name=$request->rector_name;
-    $school->neighborhood=$request->neighborhood;
-    $school->address=$request->address;
-    $school->web=$request->web;
-    $school->email=$request->email;
-    $school->web=$request->web;
-    $school->logo=$request->logo;
-    $school->year=$request->year;
+            // OLD
+            $id_country_old = $school->id_country;
+            $rector_name_old = $school->rector_name;
+            $neighborhood_old = $school->neighborhood;
+            $address_old = $school->address;
+            $web_old = $school->web;
+            $email_old = $school->email;
+            $logo_old = $school->logo;
+            $year_old = $school->year;
 
-    $school->save();
-    return $school;
+            // NEW
+            $school->id_country = $request->input('id_country', $id_country_old);
+            $school->rector_name = $request->input('rector_name', $rector_name_old);
+            $school->neighborhood = $request->input('neighborhood', $neighborhood_old);
+            $school->address = $request->input('address', $address_old);
+            $school->web = $request->input('web', $web_old);
+            $school->email = $request->input('email', $email_old);
+            $school->logo = $request->input('logo', $logo_old);
+            $school->year = $request->input('year', $year_old);
 
+            $school->save();
+            return response()->json(ResponseApi::json(["Registro actualizado correctamente"], 204));
+
+        } catch (\PDOException $e) {
+            return response()->json(ResponseApi::json(["Error al editar, # $e ", $e->getCode()]), 400);
+        }
+    }
+
+
+    public function delete(Request $request)
+    {
+
+        $school = School::destroy($request->id);
+            if ($school) {
+                return response()->json(ResponseApi::json(["Registro eliminado correctamente"], 204));
+        } else {
+            return response()->json(['message' => 'No se ha encontrado el registro'], 404);
+        }
+
+    }
 
 
 }
@@ -117,8 +137,3 @@ public function update(Request $request,$id){
 
 
 
-
-
-
-
-}

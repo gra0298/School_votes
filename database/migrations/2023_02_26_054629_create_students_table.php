@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->foreign('id_inst')->references('id')->on('schools')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('id_grade')->references('id')->on('grade')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('id_inst')->references('id')->on('schools')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('id_grade')->references('id')->on('grade')->onDelete('restrict')->onUpdate('restrict');
             $table->string('identity_document');
             $table->string('student_names');
             $table->string('student_lastnames');

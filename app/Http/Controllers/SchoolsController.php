@@ -14,10 +14,25 @@ class SchoolsController extends Controller
 
     }
 
+    public function viewSchool(Request $request)
+    {
+        $school = new SchooLogic;
+        return $school->view($request);
+
+    }
+
     public function updateSchool(Request $request,$id)
     {
+        // return [$request->logo,1];
         $school= new SchooLogic;
         return $school->update($request,$id);
+
+    }
+
+    public function deleteSchool(Request $request)
+    {
+        $school = new SchooLogic;
+        return $school->delete($request);
 
     }
 }

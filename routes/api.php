@@ -27,7 +27,9 @@ Route::prefix('v1')->group(function () {
 
         #School
         Route::post('school/new', [SchoolsController::class, 'createSchool']);
+        Route::get('school/view', [SchoolsController::class, 'viewSchool']);
         Route::put('school/update/{id}', [SchoolsController::class, 'updateSchool']);
+        Route::delete('school/delete/{id}', [SchoolsController::class, 'deleteSchool']);
 
         #Grade
         Route::post('grade/new', [GradesController::class, 'createGrade']);

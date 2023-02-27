@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('logo');
             $table->string('year')->default('2018');
-            $table->foreign('id_country')->references('id')->on('countries')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('id_country')->references('id')->on('countries')->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
         });
 
