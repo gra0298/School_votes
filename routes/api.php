@@ -9,16 +9,15 @@ use App\Http\Controllers\{PeopleController,UserController,CountriesController,Sc
 Route::prefix('v1')->group(function () {
 
 
-
          Route::post('register', [AuthController::class, 'register']);
          Route::post('login', [AuthController::class, 'login']);
 
-        #
+
 
         Route::middleware('jwt.verify')->group(function(){
 
                 Route::get('user/list', [PeopleController::class, 'listPerson']);
-                #Country
+            #Country
             Route::post('country/new', [CountriesController::class, 'createCountry']);
             Route::get('country/view', [CountriesController::class, 'viewCountry']);
             Route::get('country/list', [CountriesController::class, 'listCountries']);
@@ -29,6 +28,7 @@ Route::prefix('v1')->group(function () {
             #School
             Route::post('school/new', [SchoolsController::class, 'createSchool']);
             Route::get('school/view', [SchoolsController::class, 'viewSchool']);
+            Route::get('school/list', [SchoolsController::class, 'listSchool']);
             Route::put('school/update/{id}', [SchoolsController::class, 'updateSchool']);
             Route::delete('school/delete/{id}', [SchoolsController::class, 'deleteSchool']);
 

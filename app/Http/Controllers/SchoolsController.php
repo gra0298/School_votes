@@ -20,6 +20,12 @@ class SchoolsController extends Controller
         return $school->view($request);
 
     }
+    public function listSchool(Request $request)
+    {
+        $school = new SchooLogic;
+        return $school->list($request);
+
+    }
 
     public function updateSchool(Request $request,$id)
     {

@@ -20,10 +20,10 @@ class SchooLogic
             'id_country'      =>'required',
             'neighborhood'    => 'required',
             'address'         => 'required',
-            'web'             => 'required',
-            // 'email'           => 'required'|'unique',
+            'web'             => 'required|unique:schools',
+            'email'           => 'required|unique:schools|email',
             'logo'            => 'required',
-            // 'year'            =>'required'
+            'year'            =>'required'
 
 
     ];
@@ -63,7 +63,7 @@ class SchooLogic
             'id' => 'required'
         ]);
         if($validate->fails())
-            return response()->json(ResponseApi::json(["id no existe"], 'error', 'fallo', 202));
+            return response()->json(ResponseApi::json(["id no enviado"], 'error', 'fallo', 202));
 
 
         try {
@@ -76,6 +76,20 @@ class SchooLogic
         } catch (\PDOException $e) {
             return response()->json(ResponseApi::json(["Error al mostrar, # ", $e .  $e->getCode()], 202));
         }
+    }
+
+    public function list($request)
+    {
+        try {
+
+            $school = School::select('id', 'id_country','school_name','rector_name','neighborhood','address','web','email','logo','year')->get()->toArray();
+                return response()->json(ResponseApi::json([$school], 'Éxito al mostrar', 201));
+
+        } catch (\PDOException $e) {
+            return response()->json(ResponseApi::json(["Error al mostrar, # ", $e .  $e->getCode()], 202));
+        }
+
+
     }
 
 

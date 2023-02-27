@@ -53,31 +53,7 @@ class AuthController extends Controller
 
     }
 
-    // public function login(LoginRequest $request){
 
-    //     $credencials = $request->only('userName','userPassword');
-    //     try{
-
-    //         if(!$token = JWTAuth::attempt($credencials)){
-
-    //             return response()->json([
-    //                 'error'=>'invalid credencials',$token
-
-    //             ],400);
-    //         }
-
-
-
-    //     }catch(JWTException $e){
-    //         // return response()->json(ResponseApi::json(["not create token, # ". $e->getCode()]), 500);
-    //         return response()->json([
-    //             'error al crear'
-    //         ],500);
-    //     }
-
-    //     return response()->json(compact('token'));
-
-    // }
     public function login(LoginRequest $request){
 
         $user = User::where('userName', $request->userName)->first();

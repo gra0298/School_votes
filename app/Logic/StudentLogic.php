@@ -57,7 +57,7 @@ class StudentLogic
             'id' => 'required'
         ]);
         if($validate->fails())
-            return response()->json(ResponseApi::json(["id no existe"], 'error', 'fallo', 202));
+            return response()->json(ResponseApi::json(["id no ingresado"], 'error', 'fallo', 202));
 
 
         try {
