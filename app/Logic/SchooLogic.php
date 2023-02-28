@@ -113,8 +113,10 @@ class SchooLogic
             $email_old = $school->email;
             $logo_old = $school->logo;
             $year_old = $school->year;
+            $school_name_old = $school->school_name;
 
             // NEW
+            $school->school_name = $request->input('school_name', $school_name_old);
             $school->id_country = $request->input('id_country', $id_country_old);
             $school->rector_name = $request->input('rector_name', $rector_name_old);
             $school->neighborhood = $request->input('neighborhood', $neighborhood_old);

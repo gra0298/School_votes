@@ -10,7 +10,7 @@ use App\Http\Controllers\{CountriesController,SchoolsController
     ,TpDegreesPerTableController,TpPollingStationController,TpJuryController
     ,TpSiteTableController,TpVoteController,TpWhiteVoteController,UserTypeController,
     TpVotingSiteController};
-use App\Models\UserType;
+
 
 Route::prefix('v1')->group(function () {
 
