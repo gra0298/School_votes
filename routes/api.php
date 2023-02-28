@@ -9,7 +9,7 @@ use App\Http\Controllers\{CountriesController,SchoolsController
     ,TpAuxWhiteVoteController,TpCandidateGradeController,TpControlPanelController
     ,TpDegreesPerTableController,TpPollingStationController,TpJuryController
     ,TpSiteTableController,TpVoteController,TpWhiteVoteController,UserTypeController,
-    TpVotingSiteController};
+    TpVotingSiteController,VotingCodeController};
 
 
 Route::prefix('v1')->group(function () {
@@ -118,6 +118,12 @@ Route::prefix('v1')->group(function () {
             Route::post('vote/site/new', [TpVotingSiteController::class, 'create']);
             Route::get('vote/site/view', [TpVotingSiteController::class, 'view']);
             Route::get('vote/site/list', [TpVotingSiteController::class, 'list']);
+
+            #voting_code
+            Route::post('vote/code/new', [VotingCodeController::class, 'create']);
+            Route::get('vote/code/view', [VotingCodeController::class, 'view']);
+            Route::get('vote/code/list', [VotingCodeController::class, 'list']);
+
 
 
 
