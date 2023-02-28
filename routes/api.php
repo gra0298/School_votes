@@ -7,7 +7,10 @@ use App\Http\Controllers\{CountriesController,SchoolsController
     ,GradesController,StudentsController,Auth\AuthController
     ,TpCandidacyController,TpCandidateController,TpAuxCandidateVoteController
     ,TpAuxWhiteVoteController,TpCandidateGradeController,TpControlPanelController
-    ,TpDegreesPerTableController,TpPollingStationController};
+    ,TpDegreesPerTableController,TpPollingStationController,TpJuryController
+    ,TpSiteTableController,TpVoteController,TpWhiteVoteController,UserTypeController,
+    TpVotingSiteController};
+use App\Models\UserType;
 
 Route::prefix('v1')->group(function () {
 
@@ -17,7 +20,7 @@ Route::prefix('v1')->group(function () {
 
 
 
-        // Route::middleware('jwt.verify')->group(function(){
+        Route::middleware('jwt.verify')->group(function(){
 
 
             #Country
@@ -62,8 +65,8 @@ Route::prefix('v1')->group(function () {
             Route::get('aux/candidate/list', [TpAuxCandidateVoteController::class, 'list']);
 
             #tp_aux_white_vote => TpAuxWhiteVoteController
-            // Route::post('aux/white/vote/new', [TpAuxWhiteVoteController::class, 'create']);
-            // Route::get('aux/white/vote/view', [TpAuxWhiteVoteController::class, 'view']);
+            Route::post('aux/white/vote/new', [TpAuxWhiteVoteController::class, 'create']);
+            Route::get('aux/white/vote/view', [TpAuxWhiteVoteController::class, 'view']);
             Route::get('aux/white/vote/list', [TpAuxWhiteVoteController::class, 'list']);
 
             #tp_candidate_grades => TpCandidateGrade
@@ -82,7 +85,7 @@ Route::prefix('v1')->group(function () {
             Route::get('degrees/view', [TpDegreesPerTableController::class, 'view']);
             Route::get('degrees/list', [TpDegreesPerTableController::class, 'list']);
 
-            // tp_polling_stations
+            // tp_polling_stations => TpPollingStation
             Route::post('tp/polling/new', [TpPollingStationController::class, 'create']);
             Route::get('tp/polling/view', [TpPollingStationController::class, 'view']);
             Route::get('tp/polling/list', [TpPollingStationController::class, 'list']);
@@ -92,15 +95,34 @@ Route::prefix('v1')->group(function () {
             Route::get('tp/jury/view', [TpJuryController::class, 'view']);
             Route::get('tp/jury/list', [TpJuryController::class, 'list']);
 
+            // tp_site_table
+
+            Route::post('site/table/new', [TpSiteTableController::class, 'create']);
+            Route::get('site/table/view', [TpSiteTableController::class, 'view']);
+            Route::get('site/table/list', [TpSiteTableController::class, 'list']);
+
+            // tp_votes
+            Route::post('tp/vote/new', [TpVoteController::class, 'create']);
+            Route::get('tp/vote/view', [TpVoteController::class, 'view']);
+            Route::get('tp/vote/list', [TpVoteController::class, 'list']);
+
+            // tp_white_vote
+            Route::post('tp/white/vote/new', [TpWhiteVoteController::class, 'create']);
+            Route::get('tp/white/vote/view', [TpWhiteVoteController::class, 'view']);
+            Route::get('tp/white/vote/list', [TpWhiteVoteController::class, 'list']);
+
+            // UserType
+            Route::get('user/type/list', [UserTypeController::class, 'list']);
+
+            #tp_voting_sites
+            Route::post('vote/site/new', [TpVotingSiteController::class, 'create']);
+            Route::get('vote/site/view', [TpVotingSiteController::class, 'view']);
+            Route::get('vote/site/list', [TpVotingSiteController::class, 'list']);
 
 
 
 
-
-
-
-
-            // });
+            });
 
 
 

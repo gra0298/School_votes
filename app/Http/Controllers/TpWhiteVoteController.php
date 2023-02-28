@@ -1,17 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{TpAuxWhiteVote};
+use App\Models\{TpWhiteVote};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Tools\ResponseApi;
 
-class TpAuxWhiteVoteController extends Controller
+class TpWhiteVoteController extends Controller
 {
     protected $arrayValidate = [
-        // //validate input data.
-            'id_white_vote'   => 'required',
-            'id_matric'   => 'required',
+        //validate input data.
+            'id_inst'   => 'required','unique',
+            'id_candidacy'   => 'required',
+            'name'   => 'required',
+            'photo'   => 'required',
+            // 'mime'   => 'required',
+            // 'state'   => 'required',
+            // 'type'   => 'required',
 
 
     ];
@@ -19,9 +24,6 @@ class TpAuxWhiteVoteController extends Controller
     public function __construct()
     {
     }
-
-
-
 
     public function create(Request $request)
     {
@@ -34,7 +36,7 @@ class TpAuxWhiteVoteController extends Controller
         try {
 
 
-            $white_vote = TpAuxWhiteVote::create($request->all());
+            $white_vote = TpWhiteVote::create($request->all());
             return response()->json(ResponseApi::json([$white_vote], 'Creación exitosa'), 201);
 
 
@@ -57,7 +59,7 @@ class TpAuxWhiteVoteController extends Controller
 
 
         try {
-            $white_vote = TpAuxWhiteVote::find($request->id);
+            $white_vote = TpWhiteVote::find($request->id);
             if($white_vote)
                 return response()->json(ResponseApi::json([$white_vote], 'Éxito al mostrar', 201));
             return response()->json(ResponseApi::json(["registro no encontrado"], 'error', 'fallo', 202));
@@ -73,7 +75,7 @@ class TpAuxWhiteVoteController extends Controller
     {
         try {
 
-            $white_vote = TpAuxWhiteVote::select('id', 'id_white_vote','id_matric')->get()->toArray();
+            $white_vote = TpWhiteVote::select('id', 'id_inst','id_candidacy','name','photo','mime')->get()->toArray();
                 return response()->json(ResponseApi::json([$white_vote], 'Éxito al mostrar', 201));
 
         } catch (\PDOException $e) {
@@ -82,4 +84,5 @@ class TpAuxWhiteVoteController extends Controller
 
 
     }
+
 }

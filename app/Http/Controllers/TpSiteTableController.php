@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{TpAuxWhiteVote};
+use App\Models\{TpSiteTable};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Tools\ResponseApi;
 
-class TpAuxWhiteVoteController extends Controller
+class TpSiteTableController extends Controller
 {
     protected $arrayValidate = [
-        // //validate input data.
-            'id_white_vote'   => 'required',
-            'id_matric'   => 'required',
+        //validate input data.
+            'id_table'   => 'required',
+            'id_site'   => 'required',
 
 
     ];
@@ -19,9 +19,6 @@ class TpAuxWhiteVoteController extends Controller
     public function __construct()
     {
     }
-
-
-
 
     public function create(Request $request)
     {
@@ -34,8 +31,8 @@ class TpAuxWhiteVoteController extends Controller
         try {
 
 
-            $white_vote = TpAuxWhiteVote::create($request->all());
-            return response()->json(ResponseApi::json([$white_vote], 'Creación exitosa'), 201);
+            $site_table = TpSiteTable::create($request->all());
+            return response()->json(ResponseApi::json([$site_table], 'Creación exitosa'), 201);
 
 
         } catch (\PDOException $e) {
@@ -57,9 +54,9 @@ class TpAuxWhiteVoteController extends Controller
 
 
         try {
-            $white_vote = TpAuxWhiteVote::find($request->id);
-            if($white_vote)
-                return response()->json(ResponseApi::json([$white_vote], 'Éxito al mostrar', 201));
+            $site_table = TpSiteTable::find($request->id);
+            if($site_table)
+                return response()->json(ResponseApi::json([$site_table], 'Éxito al mostrar', 201));
             return response()->json(ResponseApi::json(["registro no encontrado"], 'error', 'fallo', 202));
 
 
@@ -73,8 +70,8 @@ class TpAuxWhiteVoteController extends Controller
     {
         try {
 
-            $white_vote = TpAuxWhiteVote::select('id', 'id_white_vote','id_matric')->get()->toArray();
-                return response()->json(ResponseApi::json([$white_vote], 'Éxito al mostrar', 201));
+            $site_table = TpSiteTable::select('id', 'id_table','id_site')->get()->toArray();
+                return response()->json(ResponseApi::json([$site_table], 'Éxito al mostrar', 201));
 
         } catch (\PDOException $e) {
             return response()->json(ResponseApi::json(["Error al mostrar, # ", $e .  $e->getCode()], 202));

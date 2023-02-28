@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TpJury extends Model
+class TpVote extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id_inst',
+        'id_matric',
         'id_table',
-        'name_jury',
-        'jury_duty',
-        'photo',
-
+        'timestamp',
 
     ];
     public $timestamps = false;
-    protected $table = 'tp_jury';
+
 }
