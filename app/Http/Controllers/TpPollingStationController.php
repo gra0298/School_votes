@@ -1,16 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Modelo};
+use App\Models\{TpPollingStation};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Tools\ResponseApi;
-class ModeloController extends Controller
+
+class TpPollingStationController extends Controller
 {
     protected $arrayValidate = [
         //validate input data.
-            'id_candidate'   => 'required','unique',
-            'id_matric'   => 'required',
+            'id_inst'   => 'required',
+            'name_table'   => 'required',
+            'number_table'   => 'required',
+            'location_table'   => 'required',
+            'start_date'   => 'required',
+            'closing_date'   => 'required',
+            // 'state'   => 'required',
 
 
     ];
@@ -30,8 +36,8 @@ class ModeloController extends Controller
         try {
 
 
-            $variable = Modelo::create($request->except('updated_at'));
-            return response()->json(ResponseApi::json([$variable], 'Creación exitosa'), 201);
+            $polling_station = TpPollingStation::create($request->except('updated_at'));
+            return response()->json(ResponseApi::json([$polling_station], 'Creación exitosa'), 201);
 
 
         } catch (\PDOException $e) {
@@ -53,9 +59,9 @@ class ModeloController extends Controller
 
 
         try {
-            $variable = Modelo::find($request->id);
-            if($variable)
-                return response()->json(ResponseApi::json([$variable], 'Éxito al mostrar', 201));
+            $polling_station = TpPollingStation::find($request->id);
+            if($polling_station)
+                return response()->json(ResponseApi::json([$polling_station], 'Éxito al mostrar', 201));
             return response()->json(ResponseApi::json(["registro no encontrado"], 'error', 'fallo', 202));
 
 
@@ -69,8 +75,8 @@ class ModeloController extends Controller
     {
         try {
 
-            $variable = Modelo::select('id', 'xxxxx')->get()->toArray();
-                return response()->json(ResponseApi::json([$variable], 'Éxito al mostrar', 201));
+            $polling_station = TpPollingStation::select('id', 'id_inst','name_table','number_table','location_table','start_date','closing_date','state')->get()->toArray();
+                return response()->json(ResponseApi::json([$polling_station], 'Éxito al mostrar', 201));
 
         } catch (\PDOException $e) {
             return response()->json(ResponseApi::json(["Error al mostrar, # ", $e .  $e->getCode()], 202));
@@ -78,6 +84,4 @@ class ModeloController extends Controller
 
 
     }
-
-
 }
