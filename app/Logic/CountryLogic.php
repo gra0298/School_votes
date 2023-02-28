@@ -98,18 +98,7 @@ class CountryLogic
 
     }
 
-    public function update(Request $request)
-    {
 
-        // $country = Country::destroy($request->id);
-        //     if ($country) {
-        //         return response()->json(ResponseApi::json(["Registro eliminado correctamente"], 204));
-        // } else {
-        //     return response()->json(['message' => 'No se ha encontrado el registro'], 404);
-        // }
-        return "esto es update";
-
-    }
 
 
 

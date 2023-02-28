@@ -27,7 +27,6 @@ Route::prefix('v1')->group(function () {
             Route::post('country/new', [CountriesController::class, 'createCountry']);
             Route::get('country/view', [CountriesController::class, 'viewCountry']);
             Route::get('country/list', [CountriesController::class, 'listCountries']);
-            Route::put('country/update/{id}', [CountriesController::class, 'updateCountry']);
             Route::delete('country/delete/{id}', [CountriesController::class, 'deleteCountry']);
 
 
@@ -123,8 +122,6 @@ Route::prefix('v1')->group(function () {
             Route::post('vote/code/new', [VotingCodeController::class, 'create']);
             Route::get('vote/code/view', [VotingCodeController::class, 'view']);
             Route::get('vote/code/list', [VotingCodeController::class, 'list']);
-
-
 
 
 
